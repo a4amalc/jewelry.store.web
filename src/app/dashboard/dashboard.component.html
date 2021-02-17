@@ -19,7 +19,7 @@
     </div>
 </form>
 
-<div  id="id01" class="modal">
+<div id="id01" class="modal">
     <form class="modal-content animate">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close"
@@ -27,7 +27,7 @@
         </div>
         <div class="container">
             <label for="price"><b>Gold Price(per gram)</b></label>
-            <input [(ngModel)]="price" type="number" placeholder="Enter Price" name="price" required>
+            <input value="price" [(ngModel)]="price" type="number" placeholder="Enter Price" name="price" required>
             <label for="weight"><b>Weight</b></label>
             <input [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
             <label for="total"><b>Total Price</b></label>
