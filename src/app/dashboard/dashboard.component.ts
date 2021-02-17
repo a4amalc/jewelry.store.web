@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular
 import { AuthService } from '../services/auth.service';
 import { FileService } from '../services/file.service';
 import { saveAs } from 'file-saver';
+import { LocalStoreService } from '../services/local-store.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,15 +17,20 @@ export class DashboardComponent implements OnInit {
   total: number = 0;
   weight: any = 0;
   discount: any;
-  
+
   @ViewChildren('preview') preview: QueryList<ElementRef>;
   @ViewChildren('previewModal') previewModal: QueryList<ElementRef>;
 
   constructor(private authService: AuthService,
-    private fileService: FileService
+    private fileService: FileService,
+    private localStoreService:LocalStoreService
   ) { }
 
   ngOnInit() {
+    let userData = this.localStoreService.getData('userDetails');
+    if (userData) {
+      this.authService.userDetails = JSON.parse(userData)
+    }
     this.userDetails = this.authService.userDetails;
     if (this.userDetails && this.userDetails.roleId == 2) {
       this.authService.getAppSettings().subscribe((data: any) => {
