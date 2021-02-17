@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
     this.fileService.exportAsPdf(request).subscribe((data: any) => {
       if (data) {
         var blob = new Blob([data], { type: 'application/pdf' });
-        saveAs(blob, "test");
+        saveAs(blob, "invoice");
       }
     })
   }
