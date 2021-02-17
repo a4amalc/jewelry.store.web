@@ -14,4 +14,8 @@ export class AuthService {
   onLogin(request){
     return this.http.post('http://localhost:5000/Auth',request);
   }
+
+  getAppSettings(){
+    return this.http.get('http://localhost:5000/Auth');
+  }
 }

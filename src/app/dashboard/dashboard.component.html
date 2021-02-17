@@ -1,17 +1,50 @@
-<h2 class="welcome">Welcome <span *ngIf="userDetails?.roleId === 1">Normal</span><span *ngIf="userDetails?.roleId === 2">Privileged</span> User </h2>
+<h2 class="welcome">Welcome <span *ngIf="userDetails?.roleId === 1">Normal</span><span
+        *ngIf="userDetails?.roleId === 2">Privileged</span> User </h2>
 <form>
     <div class="container">
         <label for="price"><b>Gold Price(per gram)</b></label>
-        <input [(ngModel)]="price" type="text" placeholder="Enter Price" name="price" required>
+        <span class="validation" *ngIf="!price && price !=0 "> Please enter price</span>
+        <input [(ngModel)]="price" type="number" placeholder="Enter Price" name="price" required>
         <label for="weight"><b>Weight</b></label>
-        <input [(ngModel)]="weight" type="text" placeholder="Enter Weight" name="weight" required>
+        <span class="validation" *ngIf="!weight && weight!=0"> Please enter weight</span>
+        <input [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
         <label for="total"><b>Total Price</b></label>
         <input [(ngModel)]="total" type="text" name="total" required>
         <label for="discount"><b>Discount(%)</b></label>
         <input [(ngModel)]="discount" disabled type="text" name="discount" required>
-        <button (click)="calculateTotal()" type="submit">Calculate</button>
+        <button [disabled]="!price || !weight" (click)="calculateTotal()" type="button">Calculate</button>
         <button (click)="printToScreen()" type="submit">Print To Screen</button>
         <button (click)="printToFile()" type="submit">Print To File</button>
         <button (click)="printToPaper()" type="submit">Print To Paper</button>
     </div>
 </form>
+
+<div  id="id01" class="modal">
+    <form class="modal-content animate">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                title="Close Modal">&times;</span>
+        </div>
+        <div class="container">
+            <label for="price"><b>Gold Price(per gram)</b></label>
+            <input [(ngModel)]="price" type="number" placeholder="Enter Price" name="price" required>
+            <label for="weight"><b>Weight</b></label>
+            <input [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
+            <label for="total"><b>Total Price</b></label>
+            <input [(ngModel)]="total" type="text" name="total" required>
+            <label for="discount"><b>Discount(%)</b></label>
+            <input [(ngModel)]="discount" disabled type="text" name="discount" required>
+        </div>
+    </form>
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
