@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   weight: any = 0;
   discount: any;
   @ViewChildren('preview') preview: QueryList<ElementRef>;
+  @ViewChildren('previewModal') previewModal: QueryList<ElementRef>;
 
   constructor(private authService: AuthService,
     private fileService: FileService
@@ -22,22 +23,26 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userDetails = this.authService.userDetails;
-    console.log(this.userDetails)
-    this.authService.getAppSettings().subscribe((data: any) => {
-      if (data.length > 0) {
-        this.discount = parseInt(data.find(x => x.settingKey == 'DISCOUNT').value);
-      }
-    })
+    if (this.userDetails && this.userDetails.roleId == 2) {
+      this.authService.getAppSettings().subscribe((data: any) => {
+        if (data.length > 0) {
+          this.discount = parseInt(data.find(x => x.settingKey == 'DISCOUNT').value);
+        }
+      });
+    }
+    else {
+      this.discount = 0;
+    }
   }
 
   calculateTotal() {
     let totalPrice = this.price * this.weight
-    let discountAmount = totalPrice * (this.discount / 100);
+    let discountAmount = this.discount > 0 ? totalPrice * (this.discount / 100) : 0;
     this.total = totalPrice - discountAmount;
   }
 
   printToScreen() {
-    document.getElementById('id01').style.display = 'block'
+    this.toggleModal('block');
   }
 
   printToFile() {
@@ -48,7 +53,7 @@ export class DashboardComponent implements OnInit {
       discount: this.discount.toString(),
       total: this.total.toString()
     }
-    document.getElementById('id01').style.display = 'none'
+    this.toggleModal('none');
     this.fileService.exportAsPdf(request).subscribe((data: any) => {
       if (data) {
         var blob = new Blob([data], { type: 'application/pdf' });
@@ -61,6 +66,10 @@ export class DashboardComponent implements OnInit {
     this.fileService.print().subscribe((data: any) => {
 
     });
+  }
+
+  toggleModal(state) {
+    this.previewModal.first.nativeElement.style.display = state
   }
 
 }

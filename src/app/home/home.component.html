@@ -1,32 +1,23 @@
 <html>
+
 <body>
-  <div id="id01" class="modal">
+  <div #loginModal class="modal">
     <form class="modal-content animate">
       <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h2>LOGIN</h2>
-
       </div>
       <div class="container">
         <label for="uname"><b>Username</b></label>
+        <span class="validation" *ngIf="userName == ''"> Please enter username</span>
         <input [(ngModel)]="userName" type="text" placeholder="Enter Username" name="uname" required>
         <label for="psw"><b>Password</b></label>
+        <span class="validation" *ngIf="password == ''"> Please enter password</span>
         <input [(ngModel)]="password" type="password" placeholder="Enter Password" name="psw" required>
-        <button (click)="onLogin()" type="submit">Login</button>
+        <span class="validation" *ngIf="!isLoginValid"> Invalid credentials</span>
+        <button [disabled]="userName =='' && password == ''" (click)="onLogin()" type="submit">Login</button>
       </div>
     </form>
   </div>
-  <script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-  </script>
-
 </body>
+
 </html>

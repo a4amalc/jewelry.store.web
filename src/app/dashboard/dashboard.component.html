@@ -10,8 +10,10 @@
         <input [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
         <label for="total"><b>Total Price</b></label>
         <input [(ngModel)]="total" type="text" name="total" required>
-        <label for="discount"><b>Discount(%)</b></label>
-        <input [(ngModel)]="discount" disabled type="text" name="discount" required>
+        <ng-container *ngIf="userDetails?.roleId === 2">
+            <label for="discount"><b>Discount(%)</b></label>
+            <input [(ngModel)]="discount" disabled type="text" name="discount" required>
+        </ng-container>
         <button [disabled]="!price || !weight" (click)="calculateTotal()" type="button">Calculate</button>
         <button (click)="printToScreen()" type="submit">Print To Screen</button>
         <button (click)="printToFile()" type="submit">Print To File</button>
@@ -19,32 +21,23 @@
     </div>
 </form>
 
-<div id="id01" class="modal">
+<div #previewModal class="modal">
     <form class="modal-content animate">
         <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                title="Close Modal">&times;</span>
+            <span (click)="toggleModal('none')" class="close" title="Close Modal">&times;</span>
         </div>
         <div class="container">
             <label for="price"><b>Gold Price(per gram)</b></label>
-            <input value="price" [(ngModel)]="price" type="number" placeholder="Enter Price" name="price" required>
+            <input disabled value="price" [(ngModel)]="price" type="number" placeholder="Enter Price" name="price"
+                required>
             <label for="weight"><b>Weight</b></label>
-            <input [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
+            <input disabled [(ngModel)]="weight" type="number" placeholder="Enter Weight" name="weight" required>
             <label for="total"><b>Total Price</b></label>
-            <input [(ngModel)]="total" type="text" name="total" required>
-            <label for="discount"><b>Discount(%)</b></label>
-            <input [(ngModel)]="discount" disabled type="text" name="discount" required>
+            <input disabled [(ngModel)]="total" disabled type="text" name="total" required>
+            <ng-container *ngIf="userDetails?.roleId === 2">
+                <label for="discount"><b>Discount(%)</b></label>
+                <input disabled [(ngModel)]="discount" disabled type="text" name="discount" required>
+            </ng-container>
         </div>
     </form>
 </div>
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
