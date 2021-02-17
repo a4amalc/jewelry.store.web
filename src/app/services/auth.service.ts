@@ -8,6 +8,7 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class AuthService {
 
+  userDetails:any;
   constructor(private http: HttpClient) { }
 
   onLogin(request){

@@ -1,0 +1,17 @@
+<h2 class="welcome">Welcome <span *ngIf="userDetails?.roleId === 1">Normal</span><span *ngIf="userDetails?.roleId === 2">Privileged</span> User </h2>
+<form>
+    <div class="container">
+        <label for="price"><b>Gold Price(per gram)</b></label>
+        <input [(ngModel)]="price" type="text" placeholder="Enter Price" name="price" required>
+        <label for="weight"><b>Weight</b></label>
+        <input [(ngModel)]="weight" type="text" placeholder="Enter Weight" name="weight" required>
+        <label for="total"><b>Total Price</b></label>
+        <input [(ngModel)]="total" type="text" name="total" required>
+        <label for="discount"><b>Discount(%)</b></label>
+        <input [(ngModel)]="discount" disabled type="text" name="discount" required>
+        <button (click)="calculateTotal()" type="submit">Calculate</button>
+        <button (click)="printToScreen()" type="submit">Print To Screen</button>
+        <button (click)="printToFile()" type="submit">Print To File</button>
+        <button (click)="printToPaper()" type="submit">Print To Paper</button>
+    </div>
+</form>
