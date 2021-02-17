@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userDetails:any;
+  userDetails: any;
   constructor(private http: HttpClient) { }
 
-  onLogin(request){
-    return this.http.post('http://localhost:5000/Auth',request);
+  onLogin(request) {
+    return this.http.post(environment.apiUrl + 'Auth', request);
   }
 
-  getAppSettings(){
-    return this.http.get('http://localhost:5000/Auth');
+  getAppSettings() {
+    return this.http.get(environment.apiUrl + 'Auth');
   }
 }
