@@ -11,10 +11,10 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   onLogin(request) {
-    return this.http.post(environment.apiUrl + 'Auth', request);
+    return this.http.post(environment.apiUrl + 'Auth/Login', request);
   }
 
   getAppSettings() {
-    return this.http.get(environment.apiUrl + 'Auth');
+    return this.http.get(environment.apiUrl + 'Auth/GetAppSettings');
   }
 }

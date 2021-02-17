@@ -10,10 +10,13 @@ import { saveAs } from 'file-saver';
 export class DashboardComponent implements OnInit {
 
   userDetails: any;
+
+  //TODO use angular reactive forms instead of ngModel 
   price: number = 0;
   total: number = 0;
   weight: any = 0;
   discount: any;
+  
   @ViewChildren('preview') preview: QueryList<ElementRef>;
   @ViewChildren('previewModal') previewModal: QueryList<ElementRef>;
 

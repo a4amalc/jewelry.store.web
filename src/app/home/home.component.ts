@@ -11,7 +11,7 @@ import { LocalStoreService } from '../services/local-store.service';
 
 })
 export class HomeComponent {
-
+  //TODO use angular reactive forms instead of ngModel 
   userName: string;
   password: string;
   isLoginValid: any = true;
@@ -24,7 +24,7 @@ export class HomeComponent {
 
   ngOnInit(): void {
     let userData = this.localStoreService.getData('userDetails');
-    if(userData){
+    if (userData) {
       this.authService.userDetails = JSON.parse(userData)
     }
     if (this.authService.userDetails) {
